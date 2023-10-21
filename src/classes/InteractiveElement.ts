@@ -55,7 +55,6 @@ export default class InteractiveElement {
     this.htmlElement.style.setProperty('--x', this.axisPosHistory.prev.x + 'px')
     this.htmlElement.style.setProperty('--y', this.axisPosHistory.prev.y + 'px')
     if (this.axisPosHistory.prev.isEqualTo(this.axisPosHistory.curr, 8)) return
-    console.log({ prev: this.axisPosHistory.prev.x, curr: this.axisPosHistory.curr.x })
     this.htmlElement.setAttribute('data-string', getRandomString(15000))
   }
 
