@@ -15,10 +15,12 @@ export default class InteractiveElement {
   posMouse: AxisPosition = new AxisPosition()
   posScreenCenter: AxisPosition = AxisPosition.getScreenCenter()
   rect: DOMRect = new DOMRect()
+  size: number
   animation: RenderLoop = new RenderLoop(this.render.bind(this))
 
-  constructor (htmlElement: HTMLElement) {
+  constructor (htmlElement: HTMLElement, size: number = 300) {
     this.htmlElement = htmlElement
+    this.size = size
     this.calculateSizePosition()
     this.initEvents()
   }
@@ -54,6 +56,7 @@ export default class InteractiveElement {
     })
     this.htmlElement.style.setProperty('--x', this.axisPosHistory.prev.x + 'px')
     this.htmlElement.style.setProperty('--y', this.axisPosHistory.prev.y + 'px')
+    this.htmlElement.style.setProperty('--size', this.size + 'px')
     if (this.axisPosHistory.prev.isEqualTo(this.axisPosHistory.curr, 8)) return
     this.htmlElement.setAttribute('data-string', getRandomString(15000))
   }
