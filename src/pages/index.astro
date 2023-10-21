@@ -1,0 +1,66 @@
+---
+import Home from '../layouts/Home.astro'
+
+---
+
+<script>
+	import InteractiveElement from '../classes/InteractiveElement'
+	const elMain = window.document.querySelector('main')
+	if (elMain) new InteractiveElement(elMain)
+</script>
+
+<Home title="Arne Decant">
+	<main id="main" data-string="test">
+		<h1>Arne</h1>
+	</main>
+</Home>
+
+<style>
+	main {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		--x: 0px;
+		--y: 0px;
+	}
+	main::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: radial-gradient(circle, rgb(23, 24, 37) 20%, rgb(102, 51, 238) 30%, rgb(142, 100, 255), rgb(249, 38, 114));
+		mix-blend-mode: darken;
+	}
+	main::before {
+		content: attr(data-string);
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		font-family: "input-mono", monospace;
+		font-size: 0.9rem;
+		line-height: 1.25;
+		word-wrap: break-word;
+		line-height: 1.15;
+		color: #fff;
+		opacity: 0;
+		transition: opacity 0.5s ease;
+		-webkit-mask-image: radial-gradient(30vw circle at var(--x) var(--y), black 20%,rgba(0,0,0,0.25), transparent);
+		mask-image: radial-gradient(30vw circle at var(--x) var(--y), black 20%, rgba(0,0,0,0.25), transparent);
+	}
+	main:hover::before {
+		opacity: 1;
+	}
+	h1 {
+		font-size: 3em;
+		color: var(--color-neutral--lightest);
+		letter-spacing: 2px;
+		z-index: 1;
+	}
+</style>
