@@ -23,21 +23,29 @@ const { title } = Astro.props
 
 <style is:global>
 	:root {
+		--color-primary: #F92672FF;
+		--color-secondary: #8E64FFFF;
     --color-neutral--lightest: #FFFFFFFF;
+		--color-neutral--light: #EEEEEEFF;
+		--color-neutral: #E6E6E6FF;
+		--color-neutral--dark: #23252AFF;
     --color-neutral--darkest: #13151AFF;
 	}
+
   *, *:before, *:after {
     all: unset;
   }
+
   style, head {
     display: none;
   }
+
 	html {
 		font-family: system-ui, sans-serif;
 		background: var(--color-neutral--darkest);
-		background-size: 224px;
     height: 100%;
 	}
+
 	code {
 		font-family:
 			Menlo,
@@ -48,5 +56,17 @@ const { title } = Astro.props
 			Bitstream Vera Sans Mono,
 			Courier New,
 			monospace;
+	}
+
+	html, main, section, article, h1, h2, h3, div, p {
+		display: block;
+	}
+
+	p {
+		line-height: 1.5;
+	}
+
+	a {
+		cursor: pointer;
 	}
 </style>

@@ -1,24 +1,38 @@
 ---
-import Home from '../layouts/Home.astro'
+import Layout from '../layouts/Layout.astro'
+import ProjectCard from '../components/ProjectCard.astro'
+import { projects } from '../data'
 
 ---
 
 <script>
 	import InteractiveElement from '../classes/InteractiveElement'
-	const elMain = window.document.querySelector('main')
-	if (elMain) new InteractiveElement(elMain)
+	const elHero: HTMLElement|null = window.document.querySelector('section.hero')
+	if (elHero !== null) new InteractiveElement(elHero)
 </script>
 
-<Home title="Arne Decant">
-	<main id="main" data-string="test">
-		<h1>Arne</h1>
+<Layout title="Arne Decant">
+	<main>
+		<section class="hero" data-string="">
+			<h1>Arne</h1>
+		</section>
+		<section class="projects">
+			<div class="projects-container">
+				{ projects.map((project) => <ProjectCard { project } />) }
+			</div>
+		</section>
 	</main>
-</Home>
+</Layout>
 
 <style>
-	main {
-		height: 100%;
+	section {
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
 		overflow: hidden;
+	}
+
+	section.hero {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -27,24 +41,25 @@ import Home from '../layouts/Home.astro'
 		--y: 0px;
 		--size: 0px;
 	}
-	main::after {
+
+	section.hero::after {
 		content: '';
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background: radial-gradient(circle, var(--color-neutral--darkest) 20%, rgb(102, 51, 238) 30%, rgb(142, 100, 255), rgb(249, 38, 114));
+		background: radial-gradient(circle, var(--color-neutral--darkest) 20%, rgb(102, 51, 238) 30%, var(--color-secondary), var(--color-primary));
 		mix-blend-mode: darken;
 	}
-	main::before {
+
+	section.hero::before {
 		content: attr(data-string);
 		position: absolute;
 		z-index: -1;
 		top: 0;
-		left: 0;
-		height: 100%;
-		width: 100%;
+		left: -1rem;
+		width: calc(100% + 2rem);
 		font-family: "input-mono", monospace;
 		font-size: 0.9rem;
 		line-height: 1.25;
@@ -56,13 +71,33 @@ import Home from '../layouts/Home.astro'
 		-webkit-mask-image: radial-gradient(var(--size) circle at var(--x) var(--y), black 20%,rgba(0,0,0,0.25), transparent);
 		mask-image: radial-gradient(var(--size) circle at var(--x) var(--y), black 20%, rgba(0,0,0,0.25), transparent);
 	}
-	main:hover::before {
+
+	section.hero:hover::before {
 		opacity: 1;
 	}
+
+	section.projects {
+		background-color: var(--color-neutral--dark);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+    position: relative;
+		z-index: 0;
+	}
+
+	.projects-container {
+		width: 75vw;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
 	h1 {
-		font-size: 3em;
+		font-size: 5em;
 		color: var(--color-neutral--lightest);
-		letter-spacing: 2px;
+		letter-spacing: 4px;
 		z-index: 1;
 	}
+
 </style>

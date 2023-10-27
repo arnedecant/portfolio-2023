@@ -10,32 +10,30 @@ export default class AxisPosition {
   x: number = 0
   y: number = 0
   z: number = 0
+  useIntegers: boolean = true
 
-  constructor (pos?: Position) {
+  constructor (pos?: Position, useIntegers: boolean = true) {
     if (!pos) return
     this.x = pos.x
     this.y = pos.y
     this.z = pos.z ?? 0
+    this.useIntegers = useIntegers
     this.update(pos)
   }
 
   public update (pos: Position) {
-    this.x = pos.x
-    this.y = pos.y
-    this.z = pos.z ?? 0
+    this.x = this.useIntegers ? Math.round(pos.x) : pos.x
+    this.y = this.useIntegers ? Math.round(pos.y) : pos.y
+    this.z = this.useIntegers ? Math.round(pos.z ?? 0) : pos.z ?? 0
     return this
   }
 
   public updateFromMouseEvent (e: MouseEvent) {
-    this.x = e.clientX
-    this.y = e.clientY
-    return this
+    return this.update({ x: e.clientX, y: e.clientY })
   }
 
   public updateFromScrollPosition () {
-    this.x = window.scrollX
-    this.y = window.scrollY
-    return this
+    return this.update({ x: window.scrollX, y: window.scrollY })
   }
 
   public getScrollDiff () {

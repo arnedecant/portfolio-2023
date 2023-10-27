@@ -57,7 +57,7 @@ export default class InteractiveElement {
     this.htmlElement.style.setProperty('--x', this.axisPosHistory.prev.x + 'px')
     this.htmlElement.style.setProperty('--y', this.axisPosHistory.prev.y + 'px')
     this.htmlElement.style.setProperty('--size', this.size + 'px')
-    if (this.axisPosHistory.prev.isEqualTo(this.axisPosHistory.curr, 8)) return
+    if (this.axisPosHistory.prev.isEqualTo(this.axisPosHistory.curr, 2)) return
     this.htmlElement.setAttribute('data-string', getRandomString(15000))
   }
 

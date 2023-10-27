@@ -1,0 +1,26 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import { Project } from '../../../types'
+import { projects } from '../../../data'
+
+const { slug } = Astro.params
+export const getStaticPaths = () => projects.map((project) => ({ params: { slug: project.slug } }))
+const project: Project = projects.find((project) => project.slug === slug)
+
+---
+
+<Layout title="Arne Decant">
+	<main>
+		{ project.name }
+	</main>
+</Layout>
+
+<style>
+  main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-neutral--light);
+  }
+</style>
